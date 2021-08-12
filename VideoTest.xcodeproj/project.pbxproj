@@ -16,6 +16,7 @@
 		9443AFF326BC25DB0097EDE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9443AFF126BC25DB0097EDE0 /* LaunchScreen.storyboard */; };
 		9443AFFB26C43FB70097EDE0 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9443AFFA26C43FB60097EDE0 /* Shaders.metal */; };
 		9443AFFD26C596D00097EDE0 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9443AFFC26C596CF0097EDE0 /* Renderer.swift */; };
+		9443B00126C5CB9E0097EDE0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9443B00026C5CB9E0097EDE0 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9443AFF426BC25DB0097EDE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9443AFFA26C43FB60097EDE0 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		9443AFFC26C596CF0097EDE0 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		9443B00026C5CB9E0097EDE0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E0921B46EAB4DEDA40E0E9FC /* Pods-VideoTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoTest.debug.xcconfig"; path = "Target Support Files/Pods-VideoTest/Pods-VideoTest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 				9443AFF126BC25DB0097EDE0 /* LaunchScreen.storyboard */,
 				9443AFF426BC25DB0097EDE0 /* Info.plist */,
 				9443AFFC26C596CF0097EDE0 /* Renderer.swift */,
+				9443B00026C5CB9E0097EDE0 /* Utils.swift */,
 			);
 			path = VideoTest;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				9443AFE726BC25D90097EDE0 /* AppDelegate.swift in Sources */,
 				9443AFFD26C596D00097EDE0 /* Renderer.swift in Sources */,
 				9443AFE926BC25D90097EDE0 /* SceneDelegate.swift in Sources */,
+				9443B00126C5CB9E0097EDE0 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
