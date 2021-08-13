@@ -20,7 +20,12 @@ class Renderer: NSObject {
     
     var numVertices: Int = 0
     var viewport: vector_uint2 = [0,0]
+    
     let image = UIImage(named: "puppy")!
+    
+    var bitmaps: [[PixelData]]!
+    let size = 400
+    var currentImage = 0
     
     init(metalView: MTKView) {
         self.metalView = metalView
@@ -63,13 +68,20 @@ class Renderer: NSObject {
         
         super.init()
         
+        //REMOVABLE
+        let black = Array(repeating: PixelData(b: 0, g: 0, r: 0, a: 255), count: size*size)
+        bitmaps = Array(repeating: black, count: 20)
+        for i in 0...19 {
+            createBitmap(i)
+        }
+        //
+        
         metalView.clearColor = MTLClearColor(red: 1.0, green: 1.0,
                                              blue: 0.8, alpha: 1.0)
         metalView.delegate = self
     }
     
     func createTexture() -> MTLTexture {
-        //let image = UIImage(named: "puppy")!
         let textureLoader = MTKTextureLoader(device: self.device)
         let usage: MTLTextureUsage = [.shaderRead]
         let options: [MTKTextureLoader.Option: Any] = [
@@ -87,7 +99,7 @@ extension Renderer: MTKViewDelegate {
     }
 
     func draw(in view: MTKView) {
-        let texture = createTexture()
+        let texture = nextImage()
         guard let descriptor = view.currentRenderPassDescriptor,
             let commandBuffer = self.commandQueue.makeCommandBuffer(),
             let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: descriptor) else {
@@ -117,7 +129,35 @@ extension Renderer: MTKViewDelegate {
         }
         commandBuffer.present(drawable)
         commandBuffer.commit()
-
     }
 }
 
+extension Renderer {
+    func createBitmap(_ step: Int = 0) {
+        
+        let red = PixelData(b: 0, g: 0, r: 255, a: 255)
+        for i in 0..<size*size/3 {
+            bitmaps[step][i+(step*size*10)] = red
+        }
+    }
+    
+    func createTexture(pixels: [PixelData], width: Int, height: Int) -> MTLTexture? {
+        var arr = pixels
+        let descriptor = MTLTextureDescriptor()
+        descriptor.pixelFormat = .bgra8Unorm
+        descriptor.width = width
+        descriptor.height = height
+        let texture = self.device.makeTexture(descriptor: descriptor)
+        let bytesPerRow = 4 * width
+        
+        let region = MTLRegion(origin: MTLOrigin(x: 0, y: 0, z: 0), size: MTLSize(width: width, height: height, depth: 1))
+        texture?.replace(region: region, mipmapLevel: 0, withBytes: &arr, bytesPerRow: bytesPerRow)
+        return texture
+    }
+    
+    func nextImage() -> MTLTexture {
+        let img = self.createTexture(pixels: self.bitmaps[currentImage], width: self.size, height: self.size)
+        self.currentImage = (currentImage + 1) % self.bitmaps.count
+        return img!
+    }
+}
